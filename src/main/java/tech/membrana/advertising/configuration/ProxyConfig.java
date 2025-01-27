@@ -1,28 +1,36 @@
 package tech.membrana.advertising.configuration;
 
-import com.codeborne.selenide.Configuration;
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import org.openqa.selenium.Proxy;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.springframework.context.annotation.Configuration;
 
+import static com.codeborne.selenide.Configuration.browserCapabilities;
 import static org.openqa.selenium.remote.CapabilityType.PROXY;
 
-@org.springframework.context.annotation.Configuration
+@Configuration
 public class ProxyConfig {
 
-    public BrowserMobProxy setupProxy() {
+    public BrowserMobProxy setUpProxy() {
         var proxy = new BrowserMobProxyServer();
         proxy.start(0);
 
-        Proxy seleniumProxy = new Proxy();
-        var proxyStr = "localhost:" + proxy.getPort();
-        seleniumProxy.setHttpProxy(proxyStr);
-        seleniumProxy.setSslProxy(proxyStr);
+        var seleniumProxy = new Proxy();
+        var proxyHost = "localhost:" + proxy.getPort();
+        seleniumProxy.setHttpProxy(proxyHost);
+        seleniumProxy.setSslProxy(proxyHost);
 
-        Configuration.browserCapabilities = new DesiredCapabilities();
-        Configuration.browserCapabilities.setCapability(PROXY, seleniumProxy);
+        browserCapabilities = new DesiredCapabilities();
+        browserCapabilities.setCapability(PROXY, seleniumProxy);
 
+        return proxy;
+    }
+
+    public BrowserMobProxy setupProxyWithExtension(ChromeOptions chromeExtension) {
+        var proxy = setUpProxy();
+        browserCapabilities.merge(chromeExtension);
         return proxy;
     }
 }

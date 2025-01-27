@@ -16,10 +16,10 @@ public class ScraperApp implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
-        var url = "https://wwww.yandex.ru";
-        harScraper.collectHarFile(url);
-        harScraper.collectHarFileWithAdBlock(url);
-        harScraper.collectHarFileWithAdGuard(url);
+    public void run(String... args) {
+        var url = "https://www.gismeteo.ru";
+        harScraper.scrapeOriginalHarFile(url);
+        harScraper.scrapeHarWithAdBlock(url);
+        harScraper.scrapeHarWithAdGuard(url);
     }
 }
