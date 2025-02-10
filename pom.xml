@@ -10,10 +10,10 @@
     </parent>
 
     <groupId>tech.membrana</groupId>
-    <artifactId>membrana-advertising-scraper</artifactId>
+    <artifactId>membrana-advertising-tester</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>membrana-advertising-scraper</name>
-    <description>advertising scraper</description>
+    <description>Scrape advertising on different sites, compare hars file and snapshotting</description>
 
     <properties>
         <java.version>21</java.version>
